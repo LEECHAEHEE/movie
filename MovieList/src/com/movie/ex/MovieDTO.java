@@ -4,12 +4,14 @@ import java.net.URL;
 
 public class MovieDTO {
 	URL imgURL;
-	String title;		//��ȭ ����
-	String rating;		//��ȭ ���� 
-	String outline;		//��ȭ ����(�帣, �󿵽ð�, ������)
-	String director;	//��ȭ ����
-	String actor;		//�⿬ ���
-
+	String movieNo; 	//고유 번호
+	String title;		//제목
+	String rating;		//평점
+	String outline;		//개요(장르, 상영시간, 예매율)
+	String director;	//감독
+	String actor;		//출연
+	String story;
+	
 	public MovieDTO() { }
 
 	public MovieDTO(URL imgURL, String title, String rating, String outline, String director, String actor) {
@@ -21,8 +23,27 @@ public class MovieDTO {
 		this.director = director;
 		this.actor = actor;
 	}
+	
+	
+	public MovieDTO(URL imgURL, String title, String story) {
+		super();
+		this.imgURL = imgURL;
+		this.title = title;
+		this.story = story;
+	}
 
-
+	public String getstory() {
+		return story;
+	}
+	public void setstory(String story) {
+		this.story = story;
+	}
+	public String getMovieNo() {
+		return movieNo;
+	}
+	public void setMovieNo(String movieNo) {
+		this.movieNo = movieNo;
+	}
 	public URL getImgURL() {
 		return imgURL;
 	}
