@@ -1,23 +1,34 @@
 package com.movie.ex;
 
+import java.net.URL;
+
 public class MovieDTO {
-	String title;		//¿µÈ­ Á¦¸ñ
-	String rating;		//¿µÈ­ ÆòÁ¡ 
-	String outline;		//¿µÈ­ °³¿ä(Àå¸£, »ó¿µ½Ã°£, °³ºÀÀÏ)
-	String director;	//¿µÈ­ °¨µ¶
-	String actor;		//Ãâ¿¬ ¹è¿ì
+	URL imgURL;
+	String title;		//ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
+	String rating;		//ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ 
+	String outline;		//ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½(ï¿½å¸£, ï¿½ó¿µ½Ã°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+	String director;	//ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
+	String actor;		//ï¿½â¿¬ ï¿½ï¿½ï¿½
 
 	public MovieDTO() { }
-	
-	public MovieDTO(String title, String outline, String rating, String director, String actor) {
+
+	public MovieDTO(URL imgURL, String title, String rating, String outline, String director, String actor) {
 		super();
+		this.imgURL = imgURL;
 		this.title = title;
-		this.outline = outline;
 		this.rating = rating;
+		this.outline = outline;
 		this.director = director;
 		this.actor = actor;
 	}
-	
+
+
+	public URL getImgURL() {
+		return imgURL;
+	}
+	public void setImgURL(URL imgURL) {
+		this.imgURL = imgURL;
+	}
 	public String getTitle() {
 		return title;
 	}

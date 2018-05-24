@@ -1,6 +1,8 @@
 package com.movie.ex;
 
+import java.awt.Image;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
@@ -9,32 +11,35 @@ import org.jsoup.select.Elements;
 
 public class MovieList {
 	public ArrayList<MovieDTO> showList(){
-		/*Á¢¼ÓÇÒ ÆäÀÌÁö URL*/
+
+		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ URL*/
 		String url = "https://movie.naver.com/movie/running/current.nhn";
 		
-		/*MovieDTO°´Ã¼¸¦ ´ãÀ» ¼ö ÀÖ´Â ArrayList¼±¾ð*/
+		/*MovieDTOï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ArrayListï¿½ï¿½ï¿½ï¿½*/
 		ArrayList<MovieDTO> list = new ArrayList<>();
 		
 		try {
-			/*Á¢¼ÓÇÏ¿© HTML Á¤º¸ Document°´Ã¼¿¡ ÀúÀå*/
+			/*ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ HTML ï¿½ï¿½ï¿½ï¿½ Documentï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
 			Document response = Jsoup.connect(url).get();
-
 			
-			/*°¢°¢ÀÇ Á¤º¸ Elements °´Ã¼¿¡ ÀúÀå*/
+			/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Elements ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
 			Elements elements = response.select("ul.lst_detail_t1 li");
+			
+			Elements images = elements.select("div.thumb a img");
 			Elements title = elements.select("dl.lst_dsc dt.tit a");
 			Elements star = elements.select("dd.star dl.info_star dd div.star_t1 a span.num");
 			Elements outline = elements.select("dl.lst_dsc dd dl.info_txt1");
 			
-			/*1~100À§ ±îÁö ¿µÈ­ Á¤º¸¸¦ °¢°¢ MovieDTO °´Ã¼¿¡ ´ã¾Æ¼­ ArrayList¿¡ ´ã´Â´Ù.*/
+			/*1~100ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ MovieDTO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ ArrayListï¿½ï¿½ ï¿½ï¿½Â´ï¿½.*/
 			for(int i=0;i<elements.size();i++) {
-				/*MovieDTO °´Ã¼ »ý¼º*/
+				/*MovieDTO ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½*/
 				MovieDTO dto = new MovieDTO();
 				
-				/*setter ÀÌ¿ëÇØ¼­ °´Ã¼ Á¤º¸ »ðÀÔ*/
+				/*setter ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
+				dto.setImgURL(new URL(images.get(i).attr("src")));
 				dto.setTitle(title.get(i).text());
 				dto.setRating(star.get(i).text());
-				/*Ãâ¿¬ Á¤º¸°¡ ¾ø´Â ¿µÈ­ Á¤º¸¿Í ÀÖ´Â Á¤º¸ ±¸ºÐÇØ¼­ ÀúÀå.*/
+				/*ï¿½â¿¬ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½.*/
 				if(outline.get(i).childNodeSize()==13) {
 					dto.setOutline(outline.get(i).child(1).text());
 					dto.setDirector(outline.get(i).child(3).text());
@@ -45,7 +50,7 @@ public class MovieList {
 					dto.setActor("-");
 				}
 				
-				/*MovieDTO°´Ã¼ ArrayList¿¡ »ðÀÔ*/
+				/*MovieDTOï¿½ï¿½Ã¼ ArrayListï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
 				list.add(dto);
 			}
 			
