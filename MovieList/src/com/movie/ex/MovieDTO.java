@@ -3,28 +3,33 @@ package com.movie.ex;
 import java.net.URL;
 
 public class MovieDTO {
-	URL imgURL;
-	String movieNo; 	//고유 번호
-	String title;		//제목
-	String rating;		//평점
-	String outline;		//개요(장르, 상영시간, 예매율)
-	String director;	//감독
-	String actor;		//출연
-	String story;
+	URL imgURL;				//이미지 URL
+	String movieNo; 		//고유 번호
+	String title;			//제목
+	String rating;			//평점
+	String reservationRate;	//예매율	
+	String outline;			//개요(장르, 상영시간, 예매율)
+	String director;		//감독
+	String actor;			//출연
+	String story;			//줄거리
 	
 	public MovieDTO() { }
 
-	public MovieDTO(URL imgURL, String title, String rating, String outline, String director, String actor) {
+	
+	public MovieDTO(URL imgURL, String movieNo, String title, String rating, String reservationRate, String outline,
+			String director, String actor, String story) {
 		super();
 		this.imgURL = imgURL;
+		this.movieNo = movieNo;
 		this.title = title;
 		this.rating = rating;
+		this.reservationRate = reservationRate;
 		this.outline = outline;
 		this.director = director;
 		this.actor = actor;
+		this.story = story;
 	}
-	
-	
+
 	public MovieDTO(URL imgURL, String title, String story) {
 		super();
 		this.imgURL = imgURL;
@@ -32,6 +37,18 @@ public class MovieDTO {
 		this.story = story;
 	}
 
+	public String getReservationRate() {
+		return reservationRate;
+	}
+	public void setReservationRate(String reservationRate) {
+		this.reservationRate = reservationRate;
+	}
+	public String getStory() {
+		return story;
+	}
+	public void setStory(String story) {
+		this.story = story;
+	}
 	public String getstory() {
 		return story;
 	}

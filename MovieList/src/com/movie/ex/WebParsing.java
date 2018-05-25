@@ -1,13 +1,11 @@
 package com.movie.ex;
 
-import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class WebParsing {
@@ -27,6 +25,7 @@ public class WebParsing {
 			Elements star = elements.select("dd.star dl.info_star dd div.star_t1 a span.num");
 			Elements outline = elements.select("dl.lst_dsc dd dl.info_txt1");
 			Elements href = elements.select("div.thumb a");
+			Elements reservationRate = elements.select("div.star_t1.b_star span.num");
 			
 			for(int i=0;i<elements.size();i++) {
 				/*MovieDTO 객체 생성*/
@@ -36,6 +35,10 @@ public class WebParsing {
 				dto.setImgURL(new URL(images.get(i).attr("src")));
 				dto.setTitle(title.get(i).text());
 				dto.setRating(star.get(i).text());
+				
+				if(i<reservationRate.size()) dto.setReservationRate(reservationRate.get(i).text());
+				else dto.setReservationRate("-");
+				
 				dto.setMovieNo(Shref.substring(Shref.indexOf("=")+1));
 				
 				if(outline.get(i).childNodeSize()==13) {
