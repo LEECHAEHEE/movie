@@ -7,10 +7,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -20,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.MatteBorder;
 
 public class ShowMovieList extends JFrame{
@@ -33,29 +37,45 @@ public class ShowMovieList extends JFrame{
 	ArrayList<MovieDTO> dtos = parsing.showList();
 	Image image = null;
 	
+	/*슬라이딩을 위한 x 좌표, 움직이는 속도*/
+	int x = 0;
+	int delay = 20; //millseconds
+	
 	/*images print*/
 	public ShowMovieList() {
 		super("movie list");
 		
-		/*set position & size of jframe*/
-		setBounds(1000,100,515,700);
+		/*JFrame*/
+		setBounds(300,100,1015,780);
 		Container contentPane = this.getContentPane();
 		setBackground(WhiteBackgroundColor);
 		contentPane.setLayout(null);
 		
-		/*top panel has top ranked movie 1st~3rd*/
-		JPanel topPanel = new JPanel();
-		topPanel.setBounds(0,0,500,250);
-		topPanel.setLayout(new GridLayout(1, 3));
+		JPanel menuPanel = new MenuPanel();
 		
-		/*top panel has 3 panels each have 1st~3rd movie info*/
-		JPanel[] topInnerPanel = new JPanel[3];
+		/*slidePanel : 1위부터 10위까지 슬라이딩 메뉴 JLable 넣을 Panel
+		 * 한 JLable 에는 다섯개의 content JLable이 들어간다.
+		 * */
+		JPanel slidePanel = new JPanel();
+		slidePanel.setLayout(null);
+		slidePanel.setBounds(0,40,1000,250);
 		
-		/*topJpanel 객체 생성*/
-		for(int i=0;i<3;i++) {
-			topInnerPanel[i] = new JPanel();
-			topInnerPanel[i].setBackground(WhiteBackgroundColor);
-		}
+		/*rankPanel : 11위부터 영화담는 패널 중 가장 큰 패널, 이후 scrollpane 지정한다.*/
+		JPanel rankPanel= new JPanel();
+		rankPanel.setLayout(new GridLayout(dtos.size()-10,1));
+		
+		/*각각의 content JLabel, 5개씩 들어가므로 총 2개의 큰 JLable이 필요하다.*/
+		/*1위부터 5위까지의 영화를 담은 JLable 을 담을 wrapLable*/
+		JPanel wrapPanel1to5 = new JPanel();
+		wrapPanel1to5.setPreferredSize(new Dimension(1000, 250));
+		wrapPanel1to5.setBounds(x,0,1000,250);
+		wrapPanel1to5.setLayout(new GridLayout(1, 5));
+		
+		/*6위부터 7위까지의 영화를 담은 JLable 을 담을 wrapLable*/
+		JPanel wrapPanel6to10 = new JPanel();
+		wrapPanel6to10.setPreferredSize(new Dimension(1000, 250));
+		wrapPanel6to10.setBounds(x+1000,0,1000,250);
+		wrapPanel6to10.setLayout(new GridLayout(1, 5));
 
 		/*
 		 *  영화 포스터가 삽입 되는 JLable 에는 setName을 통해 아이디가 부여됩니다.
@@ -64,30 +84,38 @@ public class ShowMovieList extends JFrame{
 		 * 해당 레이블의 번호를 매개변수로 넘깁니다. 
 		 */
 		
-		/*3위 이후 영화담는 패널 중 가장 큰 패널, 이후 scrollpane 지정한다.*/
-		JPanel rankPanel= new JPanel();
-		rankPanel.setLayout(new GridLayout(dtos.size()-3,1));
 		
-		/*1~100영화 정보 panel 삽입*/
+		/*1~100영화 정보 삽입*/
 		for(int i=0;i<dtos.size();i++) {
-
+			Random random = new Random();
+			int r = random.nextInt(255);
+			int g = random.nextInt(255);
+			int b = random.nextInt(255);
+			
 			try {
 				image = ImageIO.read(dtos.get(i).getImgURL());
 			} catch (IOException e) {e.printStackTrace();}
 			
+			/*영화 포스터를 담은 JLabel 객체 생성*/
 			JLabel label = new JLabel(new ImageIcon(image));
+			
 			label.setName(String.valueOf(i));
 			label.addMouseListener(listener);
 			
-			/*top3 까지는 topPanel에 삽입하고 그 이후에는 영화 포스터는 imgPanel,
+			/*top10 까지는 slidePanel에 삽입하고 그 이후에는 영화 포스터는 imgPanel,
 			 * 영화 정보는 infoPanel에 넣고 두 개의 JPanel을 다시 rPanel에 넣어서
 			 * rankPanel에 삽입.
 			 */
-			if(i<3) 
+			if(i<10) 
 			{
+				JPanel topInnerPanel = new JPanel();
+				topInnerPanel.setOpaque(true);
+				topInnerPanel.setPreferredSize(new Dimension(200, 250));
+				topInnerPanel.setBackground(new Color(r, g, b, 50));
+				
 				/*순위 텍스트*/
 				JLabel gradeLabel = new JLabel(i+1 + " 위", SwingConstants.CENTER);
-				gradeLabel.setPreferredSize(new Dimension(100, 25));
+				gradeLabel.setPreferredSize(new Dimension(200, 25));
 				gradeLabel.setFont(gradeFont);
 				
 				/*제목*/
@@ -97,19 +125,23 @@ public class ShowMovieList extends JFrame{
 				
 				/*예매율*/
 				JLabel reservationLabel = new JLabel("예매율 " + dtos.get(i).getReservationRate() + "%", SwingConstants.CENTER);
-				reservationLabel.setPreferredSize(new Dimension(100, 20));
+				reservationLabel.setPreferredSize(new Dimension(200, 20));
 				reservationLabel.setFont(reservationFont);
 				
-				/*포스터 들어갈 JLabel*/
-				topInnerPanel[i].add(gradeLabel);
-				topInnerPanel[i].add(label);
-				topInnerPanel[i].add(titleLabel);
-				topInnerPanel[i].add(reservationLabel);
+				topInnerPanel.add(label);
+				topInnerPanel.add(gradeLabel);
+				topInnerPanel.add(titleLabel);
+				topInnerPanel.add(reservationLabel);
 				
-				topPanel.add(topInnerPanel[i]);
+				if(i<5) {
+					wrapPanel1to5.add(topInnerPanel);
+				}else {
+					wrapPanel6to10.add(topInnerPanel);
+				}
 			}
 			else
 			{
+//				label.setPreferredSize(new Dimension(100, 150));
 				
 				/*rPanel : 각각의 영화 정보 담는 wrap Panel*/
 				JPanel rPanel = new JPanel();
@@ -126,7 +158,7 @@ public class ShowMovieList extends JFrame{
 				JPanel infoPanel = new JPanel();
 				infoPanel.setLayout(new GridLayout(5, 1));
 				infoPanel.setBorder(bottomBorder);
-				infoPanel.setBounds(130,0,360,150);
+				infoPanel.setBounds(130,0,870,150);
 				infoPanel.setBackground(WhiteBackgroundColor);
 				
 				ArrayList<JLabel> info = new ArrayList<>();
@@ -147,29 +179,68 @@ public class ShowMovieList extends JFrame{
 				rPanel.add(infoPanel);
 				
 				/*wrap Panel 크기 고정*/
-				rPanel.setPreferredSize(new Dimension(500, 150));
+				rPanel.setPreferredSize(new Dimension(1000, 150));
 				
 				/*scroll panel에 영화 패널을 담는다.*/
 				rankPanel.add(rPanel);
 			}
+			slidePanel.add(wrapPanel1to5);
+			slidePanel.add(wrapPanel6to10);
 		}
 		
 		JScrollPane jScrollPane = new JScrollPane(rankPanel);
 		jScrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		jScrollPane.setPreferredSize(new Dimension(500, 450));
+		jScrollPane.setBounds(0,300,1000,420);
 		
-		jScrollPane.setBounds(0,250,500,445);
 		
-		contentPane.add(topPanel);
+		contentPane.add(menuPanel);
+		contentPane.add(slidePanel);
 		contentPane.add(jScrollPane);
 				
+		
+		ActionListener taskPerformer = new ActionListener() {
+			int count = 0;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				/*2초 term 두고 슬라이딩*/
+				if(count!=0 && count%200==0)
+				{
+					try 
+					{
+						Thread.sleep(2000);
+					}
+					catch(InterruptedException e2)
+					{
+						e2.printStackTrace();
+					}
+				}
+				
+				if(wrapPanel6to10.getLocation().x==-1000)
+				{
+					wrapPanel6to10.setLocation(1000,0);
+				}
+				else if(wrapPanel1to5.getLocation().x==-1000)
+				{
+					wrapPanel1to5.setLocation(1000,0);
+				}	
+				else 
+				{
+//					System.out.println(wrapLabel1to5.getLocation());
+					wrapPanel1to5.setLocation(wrapPanel1to5.getLocation().x-1,0);
+					wrapPanel6to10.setLocation(wrapPanel6to10.getLocation().x-1,0);
+				}
+				count++;
+			}
+		};
+		new Timer(delay, taskPerformer).start();
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);	
 	}
-
-
 		
 	/*포스터 클릭 시 이벤트 발생.*/
 	MouseListener listener = new MouseListener() {
@@ -197,15 +268,4 @@ public class ShowMovieList extends JFrame{
 			new ShowMovieInfo(dtos.get(i).getMovieNo());
 		}
 	};
-	
-//	public static void setUIFont(javax.swing.plaf.FontUIResource f) {
-//		java.util.Enumeration keys = UIManager.getDefaults().keys();
-//		while(keys.hasMoreElements()) {
-//			Object key = keys.nextElement();
-//			Object value = UIManager.get(key);
-//			if(value instanceof javax.swing.plaf.FontUIResource)
-//				UIManager.put(key, f);
-//		}
-//	}
-
 }

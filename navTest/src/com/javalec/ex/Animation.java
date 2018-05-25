@@ -69,57 +69,34 @@ public class Animation extends JFrame{
 			int count = 0;
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(count);
-//				if(count== 0 || count%100==0)
-//				{
-//					try 
-//					{
-//						System.out.println("sleep 100");
-//						Thread.sleep(2000);
-//					}
-//					catch(InterruptedException e2)
-//					{
-//						e2.printStackTrace();
-//					}
-//				}
 				
-//				/*2초 term 두고 슬라이딩*/
-//				if(wrapLabel1to5.getLocation().x%100==0)
-//				{
-//					try 
-//					{
-//						System.out.println("sleep 100");
-//						Thread.sleep(2000);
-//					}
-//					catch(InterruptedException e2)
-//					{
-//						e2.printStackTrace();
-//					}
-//				}
+				/*2초 term 두고 슬라이딩*/
+				if(count!=0 && count%100==0)
+				{
+					try 
+					{
+						Thread.sleep(2000);
+					}
+					catch(InterruptedException e2)
+					{
+						e2.printStackTrace();
+					}
+				}
 				
 				if(wrapLabel6to10.getLocation().x==-500)
 				{
-					wrapLabel1to5.setLocation(500,0);
+					wrapLabel6to10.setLocation(500,0);
 				}
 				else if(wrapLabel1to5.getLocation().x==-500)
 				{
-					wrapLabel6to10.setLocation(500,0);
+					wrapLabel1to5.setLocation(500,0);
 				}	
 				else 
 				{
-					System.out.println(wrapLabel1to5.getLocation());
+//					System.out.println(wrapLabel1to5.getLocation());
 					wrapLabel1to5.setLocation(wrapLabel1to5.getLocation().x-1,0);
 					wrapLabel6to10.setLocation(wrapLabel6to10.getLocation().x-1,0);
 				}
-				
-//				if(wrapLabel1to5.getLocation().x==500) 
-//				{
-//					wrapLabel1to5.setLocation(-500,0);
-//					System.out.println("sleep 500");
-//					System.out.println(wrapLabel1to5.getLocation());
-//				}
-				
-				
 				count++;
 			}
 		};
