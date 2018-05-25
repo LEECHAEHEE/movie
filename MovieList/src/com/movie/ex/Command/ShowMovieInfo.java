@@ -1,4 +1,4 @@
-package com.movie.ex;
+package com.movie.ex.Command;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,6 +25,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+
+import com.movie.ex.JPanel.MovieDTO;
 
 public class ShowMovieInfo extends JFrame{
 	WebParsing parsing = new WebParsing();
