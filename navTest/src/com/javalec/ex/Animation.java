@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -101,6 +103,10 @@ public class Animation extends JFrame{
 			}
 		};
 		new Timer(delay, taskPerformer).start();
+		
+		
+		JButton btn = new JButton(new ImageIcon("C:\\git\\movie\\MovieList\\images\\play.png"));
+		add(btn);
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

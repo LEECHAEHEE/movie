@@ -1,22 +1,32 @@
 package com.movie.ex.Command;
 
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import com.movie.ex.DTO.SingletonDTO;
 import com.movie.ex.JPanel.MovieDTO;
+import com.movie.ex.JPanel.SlidePanel;
 
 public class MovieListener implements MouseListener{
-	JFrame frame = new JFrame();
+	SlidePanel sPanel = new SlidePanel();
+	JFrame frame;
+	JButton button;
+	boolean flag=true;
 	
-	public MovieListener(JFrame frame) {
-		this.frame = frame;
+	public MovieListener() {
+		// TODO Auto-generated constructor stub
 	}
+	
+	public MovieListener(JFrame frame) {this.frame = frame;}
+	public MovieListener(JButton button) {this.button = button;}
 	
 	ArrayList<MovieDTO> dtos =  SingletonDTO.getInstance().dtos;
 	
@@ -43,4 +53,35 @@ public class MovieListener implements MouseListener{
 		new ShowMovieInfo(dtos.get(i).getMovieNo());
 	}
 	
+	public ActionListener loginBtnListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		}
+	};
+	public ActionListener logoutBtnListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		}
+	};
+	public ActionListener memberInfoBtnListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		}
+	};
+	public ActionListener controlBtnListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ImageIcon play = new ImageIcon("./images/play.png"); 
+			ImageIcon stop = new ImageIcon("./images/stop.png"); 
+			
+			if(flag) {
+				button.setIcon(play);
+				sPanel.slide.stop();
+			}else {
+				button.setIcon(stop);
+//				sPanel.slide.restart();
+			}
+			flag=!flag;
+		}
+	};
 }

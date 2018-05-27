@@ -13,6 +13,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,10 +30,12 @@ public class SlidePanel extends JPanel{
 	int delay = 20; //millseconds
 	final Font gradeFont = new Font("맑은 고딕", Font.PLAIN, 20);
 	final Font reservationFont = new Font("맑은 고딕", Font.PLAIN, 15);
+	public Timer slide;
 	
 	ArrayList<MovieDTO> dtos =  SingletonDTO.getInstance().dtos;
 	
 	Image image = null;
+	public SlidePanel() { }
 	
 	public SlidePanel(ShowMovieList frame) {
 		setLayout(null);
@@ -97,7 +100,7 @@ public class SlidePanel extends JPanel{
 			}else {
 				wrapPanel6to10.add(topInnerPanel);
 			}
-		}
+		}//	for(int i=0;i<10;i++) {
 		
 		add(wrapPanel1to5);
 		add(wrapPanel6to10);
@@ -107,18 +110,18 @@ public class SlidePanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				/*2초 term 두고 슬라이딩*/
-				if(count!=0 && count%200==0)
-				{
-					try 
-					{
-						Thread.sleep(2000);
-					}
-					catch(InterruptedException e2)
-					{
-						e2.printStackTrace();
-					}
-				}
+//				/*2초 term 두고 슬라이딩*/
+//				if(count!=0 && count%200==0)
+//				{
+//					try 
+//					{
+//						
+//					}
+//					catch(InterruptedException e2)
+//					{
+//						e2.printStackTrace();
+//					}
+//				}
 				
 				if(wrapPanel6to10.getLocation().x==-1000)
 				{
@@ -136,9 +139,10 @@ public class SlidePanel extends JPanel{
 				}
 				count++;
 			}
-		};
-		new Timer(delay, taskPerformer).start();
+		};//ActionListener taskPerformer = new ActionListener() {
 		
-	}
-
+		slide = new Timer(delay, taskPerformer);
+		slide.start();
+		
+	}//public SlidePanel(ShowMovieList frame) {
 }
