@@ -1,4 +1,4 @@
-package com.movie.ex;
+package com.movie.ex.JPanel;
 
 import java.net.URL;
 

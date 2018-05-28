@@ -1,4 +1,4 @@
-package com.movie.ex;
+package com.movie.ex.Command;
 
 import java.io.IOException;
 import java.net.URL;
@@ -8,8 +8,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import com.movie.ex.JPanel.MovieDTO;
+
 public class WebParsing {
-	public ArrayList<MovieDTO> showList(){
+	public ArrayList<MovieDTO> getDtos(){
 
 		String url = "https://movie.naver.com/movie/running/current.nhn";
 		
