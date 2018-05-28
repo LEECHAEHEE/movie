@@ -30,7 +30,7 @@ public class SlidePanel extends JPanel{
 	int delay = 20; //millseconds
 	final Font gradeFont = new Font("맑은 고딕", Font.PLAIN, 20);
 	final Font reservationFont = new Font("맑은 고딕", Font.PLAIN, 15);
-	public Timer slide;
+	public Timer timer;
 	
 	ArrayList<MovieDTO> dtos =  SingletonDTO.getInstance().dtos;
 	
@@ -39,7 +39,7 @@ public class SlidePanel extends JPanel{
 	
 	public SlidePanel(ShowMovieList frame) {
 		setLayout(null);
-		setBounds(0,40,1000,250);
+		setBounds(0,40,1000,280);
 		
 		/*각각의 content JLabel, 5개씩 들어가므로 총 2개의 큰 JLable이 필요하다.*/
 		/*1위부터 5위까지의 영화를 담은 JLable 을 담을 wrapLable*/
@@ -102,38 +102,24 @@ public class SlidePanel extends JPanel{
 			}
 		}//	for(int i=0;i<10;i++) {
 		
+		SlideControlPanel controlPanel = new SlideControlPanel(this);
+		
 		add(wrapPanel1to5);
 		add(wrapPanel6to10);
+		add(controlPanel);
 		
 		ActionListener taskPerformer = new ActionListener() {
 			int count = 0;
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-//				/*2초 term 두고 슬라이딩*/
-//				if(count!=0 && count%200==0)
-//				{
-//					try 
-//					{
-//						
-//					}
-//					catch(InterruptedException e2)
-//					{
-//						e2.printStackTrace();
-//					}
-//				}
-				
-				if(wrapPanel6to10.getLocation().x==-1000)
-				{
+
+				if(wrapPanel6to10.getLocation().x==-1000){
 					wrapPanel6to10.setLocation(1000,0);
 				}
-				else if(wrapPanel1to5.getLocation().x==-1000)
-				{
+				else if(wrapPanel1to5.getLocation().x==-1000){
 					wrapPanel1to5.setLocation(1000,0);
 				}	
-				else 
-				{
-//					System.out.println(wrapLabel1to5.getLocation());
+				else{
 					wrapPanel1to5.setLocation(wrapPanel1to5.getLocation().x-1,0);
 					wrapPanel6to10.setLocation(wrapPanel6to10.getLocation().x-1,0);
 				}
@@ -141,8 +127,8 @@ public class SlidePanel extends JPanel{
 			}
 		};//ActionListener taskPerformer = new ActionListener() {
 		
-		slide = new Timer(delay, taskPerformer);
-		slide.start();
+		timer = new Timer(delay, taskPerformer);
+		timer.start();
 		
 	}//public SlidePanel(ShowMovieList frame) {
 }

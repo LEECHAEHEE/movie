@@ -34,8 +34,6 @@ public class ShowMovieList extends JFrame{
 		 * */
 		JPanel slidePanel = new SlidePanel(this);
 		
-		/*slidePanel 컨트롤 하는 버튼*/
-		JPanel slideControlPanel = new SlideControlPanel();
 		
 		/*scrollPanel : 11위부터 영화담는 패널 중 가장 큰 패널, 이후 scrollpane 지정한다.*/
 		JPanel scrollPanel = new ScrollPanel(this);
@@ -48,7 +46,6 @@ public class ShowMovieList extends JFrame{
 		
 		contentPane.add(menuPanel);
 		contentPane.add(slidePanel);
-		contentPane.add(slideControlPanel);
 		contentPane.add(jScrollPane);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

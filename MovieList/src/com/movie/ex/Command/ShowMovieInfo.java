@@ -71,7 +71,7 @@ public class ShowMovieInfo extends JFrame{
 		JTextArea area = new JTextArea(story);
 		area.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
 		area.setName("JTextArea");
-		area.addMouseMotionListener(motionListener);
+		area.addMouseMotionListener(mouseAdapter);
 		area.addMouseListener(mouseAdapter);
 		area.setOpaque(false);
 		area.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
@@ -91,19 +91,19 @@ public class ShowMovieInfo extends JFrame{
 		
 		
 		/*마우스 드래그 시 Frame 이동이 가능하고 Frame 클릭시 창이 닫힌다.*/
-		addMouseMotionListener(motionListener);
+		addMouseMotionListener(mouseAdapter);
 		addMouseListener(mouseAdapter);
 	}
 	
-	MouseMotionListener motionListener = new MouseMotionListener() {
-		@Override
-		public void mouseMoved(MouseEvent e) {}
-		
-		@Override
-		public void mouseDragged(MouseEvent e) {
-			setLocation(e.getXOnScreen()-mouseClickedLocation.x,e.getYOnScreen()-mouseClickedLocation.y);
-		}
-	};
+//	MouseMotionListener motionListener = new MouseMotionListener() {
+//		@Override
+//		public void mouseMoved(MouseEvent e) {}
+//		
+//		@Override
+//		public void mouseDragged(MouseEvent e) {
+//			setLocation(e.getXOnScreen()-mouseClickedLocation.x,e.getYOnScreen()-mouseClickedLocation.y);
+//		}
+//	};
 	
 	MouseAdapter mouseAdapter = new MouseAdapter() {
 		@Override
@@ -128,5 +128,9 @@ public class ShowMovieInfo extends JFrame{
 			setVisible(false);
 			dispose();
 		}
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			setLocation(e.getXOnScreen()-mouseClickedLocation.x,e.getYOnScreen()-mouseClickedLocation.y);
+		};
 	};
 }

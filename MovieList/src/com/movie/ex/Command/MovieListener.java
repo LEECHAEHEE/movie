@@ -10,15 +10,16 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
 import com.movie.ex.DTO.SingletonDTO;
 import com.movie.ex.JPanel.MovieDTO;
 import com.movie.ex.JPanel.SlidePanel;
 
 public class MovieListener implements MouseListener{
-	SlidePanel sPanel = new SlidePanel();
 	JFrame frame;
 	JButton button;
+	SlidePanel slidePanel;
 	boolean flag=true;
 	
 	public MovieListener() {
@@ -26,7 +27,7 @@ public class MovieListener implements MouseListener{
 	}
 	
 	public MovieListener(JFrame frame) {this.frame = frame;}
-	public MovieListener(JButton button) {this.button = button;}
+	public MovieListener(JButton button,SlidePanel slidePanel) {this.button = button; this.slidePanel=slidePanel;}
 	
 	ArrayList<MovieDTO> dtos =  SingletonDTO.getInstance().dtos;
 	
@@ -76,10 +77,10 @@ public class MovieListener implements MouseListener{
 			
 			if(flag) {
 				button.setIcon(play);
-				sPanel.slide.stop();
+				slidePanel.timer.stop();
 			}else {
 				button.setIcon(stop);
-//				sPanel.slide.restart();
+				slidePanel.timer.restart();
 			}
 			flag=!flag;
 		}

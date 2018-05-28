@@ -84,8 +84,6 @@ public class ScrollPanel extends JPanel{
 			
 			/*scroll panel에 영화 패널을 담는다.*/
 			add(rPanel);
-			
-			
-		}
+		}//for(int i=10;i<dtos.size();i++) {
 	}
 }
