@@ -41,9 +41,9 @@ public class MovieInfoScreen extends JFrame{
 		/*imgPanel에 들어갈 포스터 image*/
 		ImageIcon imageIcon = new ImageIcon(dto.getImgURL());
 		Image image = imageIcon.getImage();
-		Image newimg = image.getScaledInstance(250, 360, Image.SCALE_SMOOTH);
+//		Image newimg = image.getScaledInstance(250, 360, Image.SCALE_SMOOTH);
 		
-		JLabel imgLabel = new JLabel(new ImageIcon(newimg));
+		JLabel imgLabel = new JLabel(new ImageIcon(image));
 		imgLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
 		imgPanel.add(imgLabel);
 		

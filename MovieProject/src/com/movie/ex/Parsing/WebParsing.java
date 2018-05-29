@@ -65,17 +65,15 @@ public class WebParsing {
 	
 	public MovieDTO getMovieInfo(String movieNo){
 		String url = "https://movie.naver.com/movie/bi/mi/basic.nhn?code=" + movieNo;
-		String viewURL = "https://movie.naver.com/movie/bi/mi/photoViewPopup.nhn?movieCode=" + movieNo;
 		MovieDTO info = null;
-		
+
 		try {
 			Document response = Jsoup.connect(url).get();
-			Document response2 = Jsoup.connect(viewURL).get();
 			
 			String title = response.select("h3.h_movie a").first().text();
 			String story = response.select("div.story_area h5.h_tx_story").text() + "\r\n"
 							+ response.select("div.story_area p.con_tx").text();
-			URL ImgURL = new URL(response2.select("img#targetImage").attr("src"));
+			URL ImgURL = new URL(response.select("div.mv_info_area div.poster a img").attr("src"));
 			
 			info = new MovieDTO(ImgURL, title, story);
 		} catch (IOException e) {e.printStackTrace();}
