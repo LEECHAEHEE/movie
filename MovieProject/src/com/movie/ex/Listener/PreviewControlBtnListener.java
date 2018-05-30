@@ -8,11 +8,11 @@ import javax.swing.JButton;
 
 import com.movie.ex.JPanel.MoviePreview;
 
-public class MoviePreviewBtnListener implements MouseListener{
+public class PreviewControlBtnListener implements MouseListener{
 	MoviePreview moviePreview;
 	JButton button;
 	
-	public MoviePreviewBtnListener(MoviePreview moviePreview) {
+	public PreviewControlBtnListener(MoviePreview moviePreview) {
 		this.moviePreview = moviePreview;
 	}
 

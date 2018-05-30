@@ -11,14 +11,15 @@ import com.movie.ex.DTO.MovieDTO;
 import com.movie.ex.DTO.SingletonDTO;
 import com.movie.ex.JPanel.MovieInfoScreen;
 
-public class PosterClickListener implements MouseListener{
+public class SliderPosterClickListener implements MouseListener{
 	JFrame frame;
 	ArrayList<MovieDTO> dtos =  SingletonDTO.getInstance().dtos;
 	
-	public PosterClickListener(JFrame frame) {this.frame = frame;}
+	public SliderPosterClickListener(JFrame frame) {this.frame = frame;}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		e.getComponent().getName();
 		int i = Integer.parseInt(e.getComponent().getName());
 		new MovieInfoScreen(dtos.get(i).getMovieNo());
 	}
@@ -34,5 +35,4 @@ public class PosterClickListener implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {}
-
 }

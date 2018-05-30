@@ -29,6 +29,7 @@ public class MovieInfoScreen extends JFrame{
 	public MovieInfoScreen(String movieNo) {
 		/*movieNo을 통해 웹 파싱 진행, 영화 정보 얻어온다.*/
 		dto = parsing.getMovieInfo(movieNo);
+//		System.out.println(dto.getPreviewURL());
 		
 		setBounds(1000,400,700,500);
 		setLayout(null);

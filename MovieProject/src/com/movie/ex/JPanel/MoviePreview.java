@@ -5,10 +5,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,12 +21,20 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
+import com.movie.ex.DTO.MovieDTO;
+import com.movie.ex.DTO.SingletonDTO;
+import com.movie.ex.Listener.PreviewPosterClickListener;
+import com.movie.ex.Parsing.WebParsing;
+
 
 public class MoviePreview extends JPanel{
 	/*초기값*/
 	final int x = 0;		//슬라이딩 위한 x축 변수
 	final int delay = 1;		//슬라이딩 속도 
 	public Timer Ltimer, Rtimer;
+	
+	ArrayList<MovieDTO> dtos =  SingletonDTO.getInstance().dtos;
+	WebParsing parsing = new WebParsing();
 	
 	public MoviePreview(JFrame frame) {
 		setLayout(null);
@@ -35,7 +48,7 @@ public class MoviePreview extends JPanel{
 		previewLabel.setBackground(Color.WHITE);
 		
 		/*
-		 *	총 두개의 패널이 사용됩니다. 하나의 패널에는 총 4개의 영화 미리보기가 들어갑니다.
+		 *	두개의 패널 사용. 하나의 패널에는 총 4개의 영화 미리보기가 들어간다..
 		 */
 		JPanel firstPanel = new JPanel();
 		firstPanel.setLayout(new GridLayout(1, 4));
@@ -48,6 +61,9 @@ public class MoviePreview extends JPanel{
 		
 		/*총 8개의 미리보기가 들어간다.*/
 		for(int i=0;i<8;i++) {
+			String movieNum = dtos.get(i).getMovieNo();
+			URL previewImg = parsing.getMovieInfo(dtos.get(i).getMovieNo()).getPreviewURL();
+
 			Random random = new Random();
 			int r = random.nextInt(255);
 			int g = random.nextInt(255);
@@ -57,22 +73,32 @@ public class MoviePreview extends JPanel{
 			JPanel contentPanel = new JPanel();
 			contentPanel.setOpaque(true);
 			contentPanel.setPreferredSize(new Dimension(275, 250));
-			contentPanel.setBackground(new Color(r, g, b,100));
+			contentPanel.setBackground(new Color(41,41,41));
+
+			/*포스터에 들어갈 미리보기 image*/
+			ImageIcon imageIcon = new ImageIcon(previewImg);
+			Image image= imageIcon.getImage();
+			Image newImage = image.getScaledInstance(230, 150, Image.SCALE_SMOOTH);
 			
 			/*포스터 들어갈 Lable*/
-			JLabel posterLabel = new JLabel();
+			JLabel posterLabel = new JLabel(new ImageIcon(newImage));
 			posterLabel.setSize(275,150);
+			
 			/*padding 값 부여*/
+			posterLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
 			
 			/*각 포스터 구분하기 위한 이름 지정*/
 			posterLabel.setName(String.valueOf(i));
 			
 			/*각 포스터 담은 JLabel에 리스너 등록*/
-//			posterLabel.addMouseListener(new PosterClickListener(frame));
+			posterLabel.addMouseListener(new PreviewPosterClickListener(frame).listener);
 			
 			/*영화 제목 Label*/
-			JLabel titleLabel = new JLabel("test");
-			titleLabel.setPreferredSize(new Dimension(275,20));
+			JLabel titleLabel = new JLabel(dtos.get(i).getTitle());
+			titleLabel.setPreferredSize(new Dimension(275,30));
+			titleLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			titleLabel.setForeground(Color.white);
+			titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 30, 0, 0));
 			
 			contentPanel.add(posterLabel);
 			contentPanel.add(titleLabel);
@@ -92,14 +118,15 @@ public class MoviePreview extends JPanel{
 		ActionListener leftTaskPerformed = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				firstPanel.setLocation(firstPanel.getLocation().x-1, 50);
-				secondPanel.setLocation(secondPanel.getLocation().x-1,50);
 				if(firstPanel.getLocation().x%275==0) Ltimer.stop();
 				
-				if(secondPanel.getLocation().x<-1100) {
+				if(secondPanel.getLocation().x<=-1100) {
 					secondPanel.setLocation(1100,50);
-				}else if(firstPanel.getLocation().x<-1100) {
+				}else if(firstPanel.getLocation().x<=-1100) {
 					firstPanel.setLocation(1100,50);
+				}else {
+					firstPanel.setLocation(firstPanel.getLocation().x-1, 50);
+					secondPanel.setLocation(secondPanel.getLocation().x-1,50);
 				}
 			}
 		};//ActionListener taskPerformed = new ActionListener() {
@@ -108,14 +135,15 @@ public class MoviePreview extends JPanel{
 		ActionListener rightTaskPerformed = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				firstPanel.setLocation(firstPanel.getLocation().x+1, 50);
-				secondPanel.setLocation(secondPanel.getLocation().x+1,50);
 				if(secondPanel.getLocation().x%275==0) Rtimer.stop();
 				
-				if(firstPanel.getLocation().x>1100) {
+				if(firstPanel.getLocation().x>=1100) {
 					firstPanel.setLocation(-1100,50);
-				}else if(secondPanel.getLocation().x>1100) {
+				}else if(secondPanel.getLocation().x>=1100) {
 					secondPanel.setLocation(-1100,50);
+				}else {
+					firstPanel.setLocation(firstPanel.getLocation().x+1, 50);
+					secondPanel.setLocation(secondPanel.getLocation().x+1,50);
 				}
 			}
 		};//ActionListener taskPerformed = new ActionListener() {

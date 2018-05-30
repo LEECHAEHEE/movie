@@ -86,7 +86,7 @@ public class HomeScreen extends JFrame{
 		homeScreenPanel.add(contentWrapPanel);
 
 		JScrollPane scrollPane = new JScrollPane(homeScreenPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.getVerticalScrollBar().setUnitIncrement(20);							//스크롤 속도
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);								//스크롤 속도
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);		//수직 스크롤 항상 존재
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);	//수평 스크롤은 없음
 		add(scrollPane);

@@ -18,7 +18,7 @@ import javax.swing.border.MatteBorder;
 
 import com.movie.ex.DTO.MovieDTO;
 import com.movie.ex.DTO.SingletonDTO;
-import com.movie.ex.Listener.PosterClickListener;
+import com.movie.ex.Listener.SliderPosterClickListener;
 
 
 public class MovieScroll extends JScrollPane {
@@ -48,7 +48,7 @@ public class MovieScroll extends JScrollPane {
 			JLabel label = new JLabel(new ImageIcon(image));
 			
 			label.setName(String.valueOf(i));
-			label.addMouseListener(new PosterClickListener(frame));
+			label.addMouseListener(new SliderPosterClickListener(frame));
 			
 			/*rPanel : 각각의 영화 정보 담는 wrap Panel*/
 			JPanel rPanel = new JPanel();

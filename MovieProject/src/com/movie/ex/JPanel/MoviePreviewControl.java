@@ -8,13 +8,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.movie.ex.Listener.MoviePreviewBtnListener;
+import com.movie.ex.Listener.PreviewControlBtnListener;
 
 
 public class MoviePreviewControl extends JPanel{
 	
 	public MoviePreviewControl(String path,MoviePreview moviePreview) {
-		MouseListener listener = new MoviePreviewBtnListener(moviePreview);
+		MouseListener listener = new PreviewControlBtnListener(moviePreview);
 		
 		setPreferredSize(new Dimension(80, 300));
 		setOpaque(false);

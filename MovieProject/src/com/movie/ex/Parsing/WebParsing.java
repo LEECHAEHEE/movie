@@ -74,8 +74,9 @@ public class WebParsing {
 			String story = response.select("div.story_area h5.h_tx_story").text() + "\r\n"
 							+ response.select("div.story_area p.con_tx").text();
 			URL ImgURL = new URL(response.select("div.mv_info_area div.poster a img").attr("src"));
+			URL previewURL= new URL(response.select("div.obj_section a.video_obj img").first().attr("src"));
 			
-			info = new MovieDTO(ImgURL, title, story);
+			info = new MovieDTO(ImgURL,previewURL, title, story);
 		} catch (IOException e) {e.printStackTrace();}
 		
 		return info;

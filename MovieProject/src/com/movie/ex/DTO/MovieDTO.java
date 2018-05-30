@@ -4,6 +4,7 @@ import java.net.URL;
 
 public class MovieDTO {
 	URL imgURL;				//이미지 URL
+	URL previewURL;			//프리뷰 이미지 URL
 	String movieNo; 		//고유 번호
 	String title;			//제목
 	String rating;			//평점
@@ -30,13 +31,20 @@ public class MovieDTO {
 		this.story = story;
 	}
 
-	public MovieDTO(URL imgURL, String title, String story) {
+	public MovieDTO(URL imgURL, URL previewURL,String title, String story) {
 		super();
 		this.imgURL = imgURL;
+		this.previewURL = previewURL;
 		this.title = title;
 		this.story = story;
 	}
 
+	public URL getPreviewURL() {
+		return previewURL;
+	}
+	public void setPreviewURL(URL previewURL) {
+		this.previewURL = previewURL;
+	}
 	public String getReservationRate() {
 		return reservationRate;
 	}
