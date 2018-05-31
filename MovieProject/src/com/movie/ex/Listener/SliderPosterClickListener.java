@@ -10,12 +10,20 @@ import javax.swing.JFrame;
 import com.movie.ex.DTO.MovieDTO;
 import com.movie.ex.DTO.SingletonDTO;
 import com.movie.ex.JPanel.MovieInfoScreen;
+import com.movie.ex.JPanel.MovieSlide;
 
 public class SliderPosterClickListener implements MouseListener{
 	JFrame frame;
+	MovieSlide movieSlide;
 	ArrayList<MovieDTO> dtos =  SingletonDTO.getInstance().dtos;
+	public SliderPosterClickListener(JFrame frame) {
+		this.frame = frame;
+	}
 	
-	public SliderPosterClickListener(JFrame frame) {this.frame = frame;}
+	public SliderPosterClickListener(JFrame frame,MovieSlide movieSlide) {
+		this.frame = frame;
+		this.movieSlide = movieSlide;
+	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -25,10 +33,16 @@ public class SliderPosterClickListener implements MouseListener{
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {frame.setCursor(Cursor.HAND_CURSOR);}
+	public void mouseEntered(MouseEvent e) {
+		frame.setCursor(Cursor.HAND_CURSOR);
+		movieSlide.timer.stop();
+	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {frame.setCursor(Cursor.DEFAULT_CURSOR);}
+	public void mouseExited(MouseEvent e) {
+		frame.setCursor(Cursor.DEFAULT_CURSOR);
+		movieSlide.timer.restart();
+	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {}

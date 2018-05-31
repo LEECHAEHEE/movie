@@ -82,7 +82,7 @@ public class MovieSlide extends JPanel {
 			label.setName(String.valueOf(i));
 			
 			/*각 포스터 담은 JLabel에 listener 등록*/
-			label.addMouseListener(new SliderPosterClickListener(frame));
+			label.addMouseListener(new SliderPosterClickListener(frame,this));
 			
 			JPanel topInnerPanel = new JPanel();
 			topInnerPanel.setOpaque(true);
@@ -145,6 +145,6 @@ public class MovieSlide extends JPanel {
 		};//ActionListener taskPerformer = new ActionListener() {
 		
 		timer = new Timer(delay, taskPerformer);
-//		timer.start();
+		timer.start();
 	}
 }

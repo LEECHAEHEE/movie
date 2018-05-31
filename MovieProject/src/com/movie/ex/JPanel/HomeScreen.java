@@ -1,5 +1,6 @@
 package com.movie.ex.JPanel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -34,7 +35,7 @@ public class HomeScreen extends JFrame{
 		/*topMenu*/
 		JPanel topWrapPanel = new JPanel();
 		topWrapPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-		topWrapPanel.setBackground(new Color(255, 102, 102));
+		topWrapPanel.setBackground(new Color(255, 255, 255));
 		topWrapPanel.setPreferredSize(new Dimension(getWidth(),100));
 		gridbag.setConstraints(topWrapPanel, wrapConstraint);
 		
@@ -45,7 +46,7 @@ public class HomeScreen extends JFrame{
 		/*Slider*/
 		JPanel sliderWrapPanel = new JPanel();
 		sliderWrapPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-		sliderWrapPanel.setBackground(new Color(255, 140, 102));
+		sliderWrapPanel.setBackground(new Color(41, 41, 41));
 		sliderWrapPanel.setPreferredSize(new Dimension(getWidth(),450));
 		gridbag.setConstraints(sliderWrapPanel, wrapConstraint);
 		
@@ -53,37 +54,46 @@ public class HomeScreen extends JFrame{
 		sliderWrapPanel.add(sliderInnerPanel);
 		
 		/*preView*/
-		JPanel preViewWrapPanel = new JPanel();
-		preViewWrapPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-		preViewWrapPanel.setBackground(new Color(255, 217, 102));
-		preViewWrapPanel.setPreferredSize(new Dimension(getWidth(), 300));
-		gridbag.setConstraints(preViewWrapPanel, wrapConstraint);
+		JPanel previewWrapPanel = new JPanel();
+		previewWrapPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+		previewWrapPanel.setBackground(new Color(255, 255, 255));
+		previewWrapPanel.setPreferredSize(new Dimension(getWidth(), 300));
+		gridbag.setConstraints(previewWrapPanel, wrapConstraint);
 		
 		JPanel preViewInnerPanel = new MoviePreview(this);
 		/*버튼을 통해 preVIewInnerPannel을 컨트롤 할 수 있게 객체를 전달해 줘야 함.*/
 		JPanel leftArw = new MoviePreviewControl("left",(MoviePreview) preViewInnerPanel);
 		JPanel rightArw = new MoviePreviewControl("right",(MoviePreview) preViewInnerPanel);
 		
-		preViewWrapPanel.add(leftArw);
-		preViewWrapPanel.add(preViewInnerPanel);
-		preViewWrapPanel.add(rightArw);
+		previewWrapPanel.add(leftArw);
+		previewWrapPanel.add(preViewInnerPanel);
+		previewWrapPanel.add(rightArw);
 		
-		/*content*/
-		JPanel contentWrapPanel = new JPanel();
-		contentWrapPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-		contentWrapPanel.setBackground(new Color(255, 179, 102));
-		contentWrapPanel.setPreferredSize(new Dimension(1100, 500));
-		gridbag.setConstraints(contentWrapPanel, wrapConstraint);
+		/*review*/
+		JPanel reviewWrapPanel = new JPanel();
+		reviewWrapPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+		reviewWrapPanel.setBackground(new Color(255, 255, 255));
+		reviewWrapPanel.setPreferredSize(new Dimension(getWidth(), 500));
+		gridbag.setConstraints(reviewWrapPanel, wrapConstraint);
 		
-		JPanel contentInnerPanel = new JPanel();
-		contentInnerPanel.setBackground(new Color(115, 92, 138,20));
-		contentInnerPanel.setPreferredSize(new Dimension(1100,500));
-		contentWrapPanel.add(contentInnerPanel);
+		JPanel reviewInnerPanel = new JPanel();
+		reviewInnerPanel.setLayout(null);
+		reviewInnerPanel.setPreferredSize(new Dimension(1100,500));
+		/**********나중에 바꿔*************/
+		reviewInnerPanel.setBackground(new Color(255, 179, 153));
 		
+		JPanel movieRating = new MovieRating();
+		JPanel movieUnsigned = new MovieUnsigned();
+				
+		reviewInnerPanel.add(movieRating);
+		reviewInnerPanel.add(movieUnsigned);
+		reviewWrapPanel.add(reviewInnerPanel);
+		
+		/*전체 화면에 넣기*/
 		homeScreenPanel.add(topWrapPanel);
 		homeScreenPanel.add(sliderWrapPanel);
-		homeScreenPanel.add(preViewWrapPanel);
-		homeScreenPanel.add(contentWrapPanel);
+		homeScreenPanel.add(previewWrapPanel);
+		homeScreenPanel.add(reviewWrapPanel);
 
 		JScrollPane scrollPane = new JScrollPane(homeScreenPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);								//스크롤 속도

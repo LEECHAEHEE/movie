@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 
 import com.movie.ex.DTO.MovieDTO;
 import com.movie.ex.DTO.SingletonDTO;
@@ -40,9 +41,10 @@ public class MoviePreview extends JPanel{
 		setLayout(null);
 		setPreferredSize(new Dimension(1100,300));
 
-		JLabel previewLabel = new JLabel("영화 프리뷰",SwingConstants.CENTER);
+		JLabel previewLabel = new JLabel("영화 예고편",SwingConstants.CENTER);
 		previewLabel.setFont(new Font("맑은 고딕",Font.PLAIN,30));
-		previewLabel.setBorder(new EmptyBorder(10, 0, 10, 0));
+		previewLabel.setBorder(new EmptyBorder(20, 0, 10, 0));
+		previewLabel.setBorder(new MatteBorder(0,0,2,0,Color.LIGHT_GRAY));
 		previewLabel.setSize(1100,50);
 		previewLabel.setOpaque(true);
 		previewLabel.setBackground(Color.WHITE);
@@ -73,7 +75,7 @@ public class MoviePreview extends JPanel{
 			JPanel contentPanel = new JPanel();
 			contentPanel.setOpaque(true);
 			contentPanel.setPreferredSize(new Dimension(275, 250));
-			contentPanel.setBackground(new Color(41,41,41));
+			contentPanel.setBackground(new Color(255,255,255));
 
 			/*포스터에 들어갈 미리보기 image*/
 			ImageIcon imageIcon = new ImageIcon(previewImg);
@@ -85,7 +87,7 @@ public class MoviePreview extends JPanel{
 			posterLabel.setSize(275,150);
 			
 			/*padding 값 부여*/
-			posterLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+			posterLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 			
 			/*각 포스터 구분하기 위한 이름 지정*/
 			posterLabel.setName(String.valueOf(i));
@@ -94,11 +96,13 @@ public class MoviePreview extends JPanel{
 			posterLabel.addMouseListener(new PreviewPosterClickListener(frame).listener);
 			
 			/*영화 제목 Label*/
+			
 			JLabel titleLabel = new JLabel(dtos.get(i).getTitle());
-			titleLabel.setPreferredSize(new Dimension(275,30));
+			titleLabel.setPreferredSize(new Dimension(230,60));
 			titleLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-			titleLabel.setForeground(Color.white);
-			titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 30, 0, 0));
+			titleLabel.setForeground(Color.black);
+			titleLabel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.lightGray));
+//			titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 15, 0, 0));
 			
 			contentPanel.add(posterLabel);
 			contentPanel.add(titleLabel);
@@ -118,16 +122,17 @@ public class MoviePreview extends JPanel{
 		ActionListener leftTaskPerformed = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(firstPanel.getLocation().x%275==0) Ltimer.stop();
+//				System.out.println("firstPanel x : " + firstPanel.getLocation().x + "secondPanel x : " + secondPanel.getLocation().x);
+				if(firstPanel.getLocation().x==-1100) firstPanel.setLocation(1100,50);
+				else if(secondPanel.getLocation().x==-1100) secondPanel.setLocation(1100,50);
 				
-				if(secondPanel.getLocation().x<=-1100) {
-					secondPanel.setLocation(1100,50);
-				}else if(firstPanel.getLocation().x<=-1100) {
-					firstPanel.setLocation(1100,50);
-				}else {
-					firstPanel.setLocation(firstPanel.getLocation().x-1, 50);
-					secondPanel.setLocation(secondPanel.getLocation().x-1,50);
-				}
+				firstPanel.setLocation(firstPanel.getLocation().x-5, 50);
+				secondPanel.setLocation(secondPanel.getLocation().x-5,50);
+				
+				if(firstPanel.getLocation().x%275==0) Ltimer.stop(); 
+				
+				if(firstPanel.getLocation().x==-1100) firstPanel.setLocation(1100,50);
+				else if(secondPanel.getLocation().x==-1100) secondPanel.setLocation(1100,50);
 			}
 		};//ActionListener taskPerformed = new ActionListener() {
 		
@@ -135,16 +140,18 @@ public class MoviePreview extends JPanel{
 		ActionListener rightTaskPerformed = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(secondPanel.getLocation().x%275==0) Rtimer.stop();
+				if(firstPanel.getLocation().x==1100) firstPanel.setLocation(-1100,50);
+				else if(secondPanel.getLocation().x==1100) secondPanel.setLocation(-1100,50);
 				
-				if(firstPanel.getLocation().x>=1100) {
-					firstPanel.setLocation(-1100,50);
-				}else if(secondPanel.getLocation().x>=1100) {
-					secondPanel.setLocation(-1100,50);
-				}else {
-					firstPanel.setLocation(firstPanel.getLocation().x+1, 50);
-					secondPanel.setLocation(secondPanel.getLocation().x+1,50);
-				}
+				firstPanel.setLocation(firstPanel.getLocation().x+5, 50);
+				secondPanel.setLocation(secondPanel.getLocation().x+5,50);
+				
+				if(firstPanel.getLocation().x%275==0) Rtimer.stop(); 
+				
+				if(firstPanel.getLocation().x==1100) firstPanel.setLocation(-1100,50);
+				else if(secondPanel.getLocation().x==1100) secondPanel.setLocation(-1100,50);
+				
+//				System.out.println("firstPanel x : " + firstPanel.getLocation().x + "secondPanel x : " + secondPanel.getLocation().x);
 			}
 		};//ActionListener taskPerformed = new ActionListener() {
 		
