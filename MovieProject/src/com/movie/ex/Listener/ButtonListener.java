@@ -8,8 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.movie.ex.JPanel.HomeScreen;
-import com.movie.ex.JPanel.MovieSlide;
+import com.movie.ex.HomePanel.HomeScreen;
+import com.movie.ex.HomePanel.MovieSlide;
 import com.movie.ex.Main.Main;
 
 public class ButtonListener{
@@ -31,9 +31,9 @@ public class ButtonListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//TODO 회원가입 클래스 이곳에
-			Main.isLogin = true;
-			panel.setVisible(false);
-			new HomeScreen();
+//			Main.isLogin = true;
+//			frame.setVisible(false);
+//			new HomeScreen();
 		}
 	};
 	
@@ -43,7 +43,7 @@ public class ButtonListener{
 		public void actionPerformed(ActionEvent e) {
 			//TODO 로그인 클래스 이곳에
 			Main.isLogin = true;
-			panel.setVisible(false);
+			frame.setVisible(false);
 			new HomeScreen();
 		}
 	};
@@ -53,7 +53,7 @@ public class ButtonListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Main.isLogin = false;
-			panel.setVisible(false);
+			frame.setVisible(false);
 			new HomeScreen();
 		}
 	};
@@ -63,6 +63,16 @@ public class ButtonListener{
 		//TODO 회원정보 보기 클래스
 		@Override
 		public void actionPerformed(ActionEvent e) {
+		}
+	};
+	
+	/*예매하기 버튼*/
+	public ActionListener bookBtnListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+//			ReserveFrame window = new ReserveFrame();
+//			Thread thread = new Thread(window);
+//			thread.start();
 		}
 	};
 	

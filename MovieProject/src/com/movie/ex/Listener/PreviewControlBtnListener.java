@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import com.movie.ex.JPanel.MoviePreview;
+import com.movie.ex.HomePanel.MoviePreview;
 
 public class PreviewControlBtnListener implements MouseListener{
 	MoviePreview moviePreview;

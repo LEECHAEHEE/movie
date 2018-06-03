@@ -9,8 +9,8 @@ import javax.swing.JFrame;
 
 import com.movie.ex.DTO.MovieDTO;
 import com.movie.ex.DTO.SingletonDTO;
-import com.movie.ex.JPanel.MovieInfoScreen;
-import com.movie.ex.JPanel.MovieSlide;
+import com.movie.ex.HomePanel.MovieInfoScreen;
+import com.movie.ex.HomePanel.MovieSlide;
 
 public class SliderPosterClickListener implements MouseListener{
 	JFrame frame;
