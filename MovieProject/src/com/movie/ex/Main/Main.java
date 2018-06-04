@@ -7,8 +7,8 @@ public class Main {
 	/*로그인 여부*/
 	public static boolean isLogin = false;
 	public static void main(String[] args) {
-//		new MovieAllBoard();
-		new HomeScreen();
+		new MovieAllBoard();
+//		new HomeScreen();
 	}
 }
 //

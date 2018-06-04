@@ -81,7 +81,7 @@ public class PreviewPosterClickListener extends JFrame{
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					showPreview("https://youtu.be/ccZYzupo37M"); 
+					showPreview("https://youtu.be/xUDhdCsLkjU"); 
 				}
 			});
 		};

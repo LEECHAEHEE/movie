@@ -58,14 +58,36 @@ public class BoardDAO {
 	/******************************************************************************************
 	 * 게시판 모든 글 가져오기
 	 ******************************************************************************************/
-
+	public ArrayList<BoardDTO> getBoardList(){
+		ArrayList<BoardDTO> dtos = new ArrayList<>();
+		conn = getConnection();
+		String sql = "select * from mboard order by no desc";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setNo(rs.getInt("no"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setWriter(rs.getString("writer_no"));
+				dto.setDate(rs.getTimestamp("wdate"));
+				dtos.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconn(conn, pstmt, rs);
+		}
+		return dtos;
+	}
 	/******************************************************************************************
-	 * 게시판 상위 5개 글 가져오기
+	 * 게시판 상위 10개 글 가져오기
 	 ******************************************************************************************/
 	public ArrayList<BoardDTO> getUpperTen(){
 		ArrayList<BoardDTO> dtos = new ArrayList<>();
 		conn = getConnection();
-		String sql = "select * from mboard order by no desc limit 5";
+		String sql = "select * from mboard order by no desc limit 10";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

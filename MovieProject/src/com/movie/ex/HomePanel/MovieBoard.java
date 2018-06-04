@@ -68,25 +68,27 @@ public class MovieBoard extends JPanel{
 		
 		/*내용 영역*/
 		JPanel contentPanel = new JPanel();
-		contentPanel.setLayout(new GridLayout(5, 1));
+		contentPanel.setLayout(new GridLayout(10, 1));
 		contentPanel.setBounds(0,60,460,370);
 		contentPanel.setBackground(Color.red);
 		
-		/*상위 5개 글 갖고온다*/
+		/*상위 10개 글 갖고온다*/
 		dtos = dao.getUpperTen();
 		
-		for(int i=0;i<5;i++) {
+		for(int i=0;i<10;i++) {
 			JPanel reviewPanel = new JPanel();
-			reviewPanel.setPreferredSize(new Dimension(460, 80));
+			reviewPanel.setLayout(null);
+			reviewPanel.setPreferredSize(new Dimension(460, 40));
 			reviewPanel.setBackground(Color.WHITE);
-			if(i<4) reviewPanel.setBorder(new MatteBorder(0,0,1,0,Color.LIGHT_GRAY));
+			if(i<9) reviewPanel.setBorder(new MatteBorder(0,0,1,0,Color.LIGHT_GRAY));
 			
 			
 			if(i<dtos.size()) {
-				JLabel no = new JLabel(String.valueOf(dtos.get(i).getNo()));
 				JLabel title = new JLabel(dtos.get(i).getTitle());
-				JLabel writer = new JLabel(dtos.get(i).getWriter());
-				JLabel date = new JLabel(new SimpleDateFormat("yy/MM/dd").format(dtos.get(i).getDate()));
+				title.setBounds(20,0,460,40);
+				title.setFont(new Font("맑은 고딕",Font.PLAIN,15));
+				
+				reviewPanel.add(title);
 			}
 			contentPanel.add(reviewPanel);
 		}

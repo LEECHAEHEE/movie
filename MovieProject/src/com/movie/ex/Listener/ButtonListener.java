@@ -1,15 +1,18 @@
 package com.movie.ex.Listener;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.movie.ex.HomePanel.HomeScreen;
 import com.movie.ex.HomePanel.MovieSlide;
+import com.movie.ex.HomePanel.TopMenu;
 import com.movie.ex.Main.Main;
 
 public class ButtonListener{
@@ -17,10 +20,18 @@ public class ButtonListener{
 	JPanel panel;
 	JButton button;
 	MovieSlide movieSlide;
+	TopMenu topMenu;
+	
 	boolean flag=true;
 	
 	public ButtonListener() { }
+	
 	public ButtonListener(JFrame frame) { this.frame=frame; }
+	
+	public ButtonListener(JFrame frame, TopMenu topMenu) { 
+		this.frame=frame; this.topMenu = topMenu; 
+	}
+	
 	public ButtonListener(JButton button, MovieSlide movieSlide) {
 		this.button = button;
 		this.movieSlide = movieSlide;
@@ -31,6 +42,8 @@ public class ButtonListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//TODO 회원가입 클래스 이곳에
+			System.out.println("회원가입");
+
 //			Main.isLogin = true;
 //			frame.setVisible(false);
 //			new HomeScreen();
@@ -42,9 +55,29 @@ public class ButtonListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//TODO 로그인 클래스 이곳에
-			Main.isLogin = true;
-			frame.setVisible(false);
-			new HomeScreen();
+			Main.isLogin=true;
+			
+			/*로그인 성공*/
+			if(Main.isLogin) {
+				topMenu.btnWrap.removeAll();
+
+				topMenu.greetLabel = new JLabel("User");
+				topMenu.greetLabel.setPreferredSize(new Dimension(100, 40));
+				topMenu.greetLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+				
+				topMenu.btnWrap.add(topMenu.greetLabel);
+				topMenu.btnWrap.add(topMenu.logoutBtn);
+				topMenu.btnWrap.add(topMenu.memberInfoBtn);
+				topMenu.btnWrap.add(topMenu.bookButton);
+				
+				topMenu.repaint();
+				topMenu.revalidate();
+				frame.revalidate();
+			}
+			/*로그인 실패*/
+			else {
+				
+			}
 		}
 	};
 	
@@ -53,8 +86,20 @@ public class ButtonListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Main.isLogin = false;
-			frame.setVisible(false);
-			new HomeScreen();
+			topMenu.btnWrap.removeAll();
+			
+			topMenu.greetLabel = new JLabel("Guest");
+			topMenu.greetLabel.setPreferredSize(new Dimension(100, 40));
+			topMenu.greetLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			
+			topMenu.btnWrap.add(topMenu.greetLabel);
+			topMenu.btnWrap.add(topMenu.loginBtn);
+			topMenu.btnWrap.add(topMenu.registerBtn);
+			topMenu.btnWrap.add(topMenu.bookButton);
+			
+			topMenu.repaint();
+			topMenu.revalidate();
+			frame.revalidate();
 		}
 	};
 	
@@ -63,6 +108,7 @@ public class ButtonListener{
 		//TODO 회원정보 보기 클래스
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("회원정보");
 		}
 	};
 	
@@ -70,6 +116,8 @@ public class ButtonListener{
 	public ActionListener bookBtnListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("예매하기");
+
 //			ReserveFrame window = new ReserveFrame();
 //			Thread thread = new Thread(window);
 //			thread.start();

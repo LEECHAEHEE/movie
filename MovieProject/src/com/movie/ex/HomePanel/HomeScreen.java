@@ -98,10 +98,10 @@ public class HomeScreen extends JFrame{
 		reviewWrapPanel.add(reviewInnerPanel);
 		
 		/*전체 화면에 넣기*/
-//		homeScreenPanel.add(topWrapPanel);
-//		homeScreenPanel.add(sliderWrapPanel);
-//		homeScreenPanel.add(previewWrapPanel);
-//		homeScreenPanel.add(adWrapPanel);
+		homeScreenPanel.add(topWrapPanel);
+		homeScreenPanel.add(sliderWrapPanel);
+		homeScreenPanel.add(previewWrapPanel);
+		homeScreenPanel.add(adWrapPanel);
 		homeScreenPanel.add(reviewWrapPanel);
 
 		JScrollPane scrollPane = new JScrollPane(homeScreenPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

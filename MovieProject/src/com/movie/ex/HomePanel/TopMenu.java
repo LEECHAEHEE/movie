@@ -19,6 +19,15 @@ public class TopMenu extends JPanel {
 	boolean isLogin=Main.isLogin;		//로그인 여부에 따라 topMenu 다르게 나타납니다.
 	ButtonListener listener = new ButtonListener();
 	
+	public JPanel btnWrap;
+	public JLabel greetLabel;
+	
+	public JButton registerBtn 		= new JButton("회원가입");
+	public JButton loginBtn 		= new JButton("로그인");	
+	public JButton logoutBtn 		= new JButton("로그아웃");
+	public JButton memberInfoBtn 	= new JButton("회원정보");
+	public JButton bookButton		= new JButton("예매하기");
+	
 	public TopMenu(JFrame frame) {
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(1100, 100));
@@ -29,28 +38,21 @@ public class TopMenu extends JPanel {
 		add(logo, BorderLayout.WEST);
 		
 		/*로그인여부에 따라 다르게 나타나는 회원 메뉴*/
-		JPanel btnWrap = new JPanel();
+		btnWrap = new JPanel();
 		btnWrap.setBorder(new EmptyBorder(30, 0, 0, 0));
 		btnWrap.setBackground(Color.white);
 		btnWrap.setPreferredSize(new Dimension(500, 40));
 		btnWrap.setLayout(new FlowLayout());
 		
-		JLabel greetLabel = new JLabel();
+		greetLabel = new JLabel();
+		greetLabel.setPreferredSize(new Dimension(100, 40));
 		greetLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		greetLabel.setText((isLogin)?"USER":"GUEST");
-		greetLabel.setBorder(new EmptyBorder(0, 0, 0, 40));
-		
-		JButton registerBtn = new JButton("회원가입");
-		JButton loginBtn = new JButton("로그인");
-		JButton logoutBtn = new JButton("로그아웃");
-		JButton memberInfoBtn = new JButton("회원정보");
-		JButton bookButton = new JButton("예매하기");
-		
+		greetLabel.setText("GUEST");
 		
 		/*각각 버튼에 리스너 추가*/
-		loginBtn.addActionListener(new ButtonListener(frame).loginBtnListener);
+		loginBtn.addActionListener(new ButtonListener(frame,this).loginBtnListener);
 		registerBtn.addActionListener(new ButtonListener().registerBtnListener);
-		logoutBtn.addActionListener(new ButtonListener(frame).logoutBtnListener);
+		logoutBtn.addActionListener(new ButtonListener(frame,this).logoutBtnListener);
 		memberInfoBtn.addActionListener(new ButtonListener().memberInfoBtnListener);
 		bookButton.addActionListener(new ButtonListener().bookBtnListener);
 		
@@ -61,11 +63,13 @@ public class TopMenu extends JPanel {
 		registerBtn.setContentAreaFilled(false);
 		
 		loginBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		loginBtn.setPreferredSize(new Dimension(100, 30));
 		loginBtn.setBorderPainted(false);
 		loginBtn.setFocusPainted(false);
 		loginBtn.setContentAreaFilled(false);
 		
 		logoutBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		logoutBtn.setPreferredSize(new Dimension(100, 30));
 		logoutBtn.setBorderPainted(false);
 		logoutBtn.setFocusPainted(false);
 		logoutBtn.setContentAreaFilled(false);
@@ -79,20 +83,12 @@ public class TopMenu extends JPanel {
 		bookButton.setFocusPainted(false);
 		bookButton.setContentAreaFilled(false);
 		
-		/*로그인 여부에 따라 달라지는 상단 메뉴*/
-		if(isLogin) {
-			btnWrap.add(greetLabel);
-			btnWrap.add(memberInfoBtn);
-			btnWrap.add(logoutBtn);
-			btnWrap.add(bookButton);
-		}else {
-			btnWrap.add(greetLabel);
-			btnWrap.add(loginBtn);
-			btnWrap.add(registerBtn);
-			btnWrap.add(bookButton);
-		}
+		/*버튼 추가*/
+		btnWrap.add(greetLabel);
+		btnWrap.add(loginBtn);
+		btnWrap.add(registerBtn);
+		btnWrap.add(bookButton);
 		
 		add(btnWrap, BorderLayout.EAST);
-		//setBounds(0,0,1000,40);
 	}
 }

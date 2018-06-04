@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -31,13 +32,6 @@ public class WriteBoard extends JPanel{
 		backBtn.setBounds(40,480,90,30);
 		backBtn.setContentAreaFilled(false);
 		
-		/*뒤로가기 버튼 리스너 등록*/
-		backBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				movieAllBoard.LtoRTimer.start();
-			}
-		});
 		
 		/*제목 입력*/
 		JTextField titleField = new JTextField();
@@ -54,6 +48,16 @@ public class WriteBoard extends JPanel{
 		completeBtn.setBounds(660,480,90,30);
 		completeBtn.setContentAreaFilled(false);
 		
+		/*뒤로가기 버튼 리스너 등록*/
+		backBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				titleField.setText("");
+				contentArea.setText("");
+				movieAllBoard.LtoRTimer.start();
+			}
+		});
+		
 		/*입력 버튼 리스너 등록*/
 		completeBtn.addActionListener(new ActionListener() {
 			@Override
@@ -61,6 +65,10 @@ public class WriteBoard extends JPanel{
 				String title = titleField.getText().trim();
 				String content = contentArea.getText().trim();
 				dao.insert(title, content);
+				titleField.setText("");
+				contentArea.setText("");
+				JOptionPane.showMessageDialog(null, "등록 되었습니다");
+				movieAllBoard.LtoRTimer.start();
 			}
 		});
 		

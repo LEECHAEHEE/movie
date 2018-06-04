@@ -18,12 +18,12 @@ public class PreviewControlBtnListener implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getComponent().getName().equals("left")) {
+		if(e.getComponent().getName().equals("right")) {
 			if(moviePreview.Rtimer.isRunning()) {
 				moviePreview.Rtimer.stop();
 			}
 			moviePreview.Ltimer.restart();
-		}else if(e.getComponent().getName().equals("right")) {
+		}else if(e.getComponent().getName().equals("left")) {
 			if(moviePreview.Ltimer.isRunning()) {
 				moviePreview.Ltimer.stop();
 			}

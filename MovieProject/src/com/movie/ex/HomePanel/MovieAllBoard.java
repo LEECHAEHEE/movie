@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -19,7 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.MatteBorder;
 
-import com.movie.ex.DTO.MovieDTO;
+import com.movie.ex.DAO.BoardDAO;
+import com.movie.ex.DTO.BoardDTO;
 
 public class MovieAllBoard extends JFrame {
 	/*슬라이딩 변수*/
@@ -33,10 +35,6 @@ public class MovieAllBoard extends JFrame {
 		setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		setBackground(Color.white);
 		getContentPane().setLayout(null);
-		
-		
-		/*MovieDTO*/
-		ArrayList<MovieDTO> dtos = new ArrayList<>();
 		
 		/*전체 패널 감싸는 패널*/
 		JPanel wrapPanel = new JPanel();
@@ -83,6 +81,11 @@ public class MovieAllBoard extends JFrame {
 		JPanel contentPanel = new JPanel();
 		contentPanel.setPreferredSize(new Dimension(740, 440));
 		contentPanel.setLayout(new GridLayout(11, 1));
+		
+		/*boardDTO 객체 불러오기*/
+		ArrayList<BoardDTO> dtos= new ArrayList<>();
+		BoardDAO dao = new BoardDAO();
+		dtos = dao.getBoardList();
 		
 		/*10개 글 등록*/
 		for(int i=0;i<11;i++) {
@@ -135,36 +138,30 @@ public class MovieAllBoard extends JFrame {
 			}
 			
 			/*각각 내용*/
-			JLabel no = new JLabel();
+			JLabel no = new JLabel(String.valueOf(dtos.get(i).getNo()));
 			no.setPreferredSize(new Dimension(80, 40));
-			no.setBackground(Color.red);
 			no.setOpaque(true);
 			no.setHorizontalAlignment(JLabel.CENTER);
 			no.setVerticalAlignment(JLabel.CENTER);
 			no.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 			no.setBorder(new MatteBorder(0,0,1,0,Color.lightGray));
 			
-			JLabel title = new JLabel();
+			JLabel title = new JLabel(dtos.get(i).getTitle());
 			title.setPreferredSize(new Dimension(460, 40));
-			title.setBackground(Color.blue);
 			title.setOpaque(true);
-			title.setHorizontalAlignment(JLabel.CENTER);
-			title.setVerticalAlignment(JLabel.CENTER);
 			title.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 			title.setBorder(new MatteBorder(0,0,1,0,Color.lightGray));
 			
-			JLabel writer = new JLabel();
+			JLabel writer = new JLabel(dtos.get(i).getWriter());
 			writer.setPreferredSize(new Dimension(100, 40));
-			writer.setBackground(Color.green);
 			writer.setOpaque(true);
 			writer.setHorizontalAlignment(JLabel.CENTER);
 			writer.setVerticalAlignment(JLabel.CENTER);
 			writer.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 			writer.setBorder(new MatteBorder(0,0,1,0,Color.lightGray));
 			
-			JLabel date = new JLabel();
+			JLabel date = new JLabel(new SimpleDateFormat("yy/MM/hh").format(dtos.get(i).getDate()));
 			date.setPreferredSize(new Dimension(100,40));
-			date.setBackground(Color.magenta);
 			date.setOpaque(true);
 			date.setHorizontalAlignment(JLabel.CENTER);
 			date.setVerticalAlignment(JLabel.CENTER);
@@ -205,15 +202,23 @@ public class MovieAllBoard extends JFrame {
 		lastBtn.setBorderPainted(false);
 		lastBtn.setFocusPainted(false);
 		
+		/*페이징 패널에 버튼 추가*/
 		pagingPanel.add(firstBtn);
 		pagingPanel.add(prevBtn);
 		
-		/*페이지 번호 넣는 반복문*/
+		/*페이지 번호 버튼 넣는 반복문*/
 		for(int i=0;i<10;i++) {
 			JButton pageBtn = new JButton(String.valueOf(1+i));
 			pageBtn.setContentAreaFilled(false);
 			pageBtn.setBorderPainted(false);
 			pagingPanel.add(pageBtn);
+			pageBtn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					System.out.println(pageBtn.getText());
+				}
+			});
 		}//	for(int i=0;i<10;i++) {
 		
 		pagingPanel.add(nextBtn);
@@ -260,5 +265,4 @@ public class MovieAllBoard extends JFrame {
 		RtoLTimer = new Timer(delay, RtoLTaskPerformed);
 		LtoRTimer = new Timer(delay, LtoRTaskPerformed);
 	}//public MovieAllBoard() {
-	
 }
