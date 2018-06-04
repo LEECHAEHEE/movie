@@ -6,9 +6,11 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 /*
  * 홈 width:1500 height:1000
@@ -18,7 +20,6 @@ public class HomeScreen extends JFrame{
 		super("영화 프로젝트");
 		
 		/*초기 홈 화면 설정*/
-//		HomeScreenInit homeScreen = new HomeScreenInit(this);
 		setBackground(Color.WHITE);
 		
 		JPanel homeScreenPanel = new JPanel();
@@ -70,6 +71,12 @@ public class HomeScreen extends JFrame{
 		previewWrapPanel.add(preViewInnerPanel);
 		previewWrapPanel.add(rightArw);
 		
+		/*AD*/
+		ImageIcon icon = new ImageIcon("./images/AdBackground.png");
+		JPanel adWrapPanel = new AdPanel(icon.getImage());
+		adWrapPanel.setPreferredSize(new Dimension(getWidth(), 180));
+		gridbag.setConstraints(adWrapPanel, wrapConstraint);
+		
 		/*review*/
 		JPanel reviewWrapPanel = new JPanel();
 		reviewWrapPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
@@ -91,9 +98,10 @@ public class HomeScreen extends JFrame{
 		reviewWrapPanel.add(reviewInnerPanel);
 		
 		/*전체 화면에 넣기*/
-		homeScreenPanel.add(topWrapPanel);
-		homeScreenPanel.add(sliderWrapPanel);
-		homeScreenPanel.add(previewWrapPanel);
+//		homeScreenPanel.add(topWrapPanel);
+//		homeScreenPanel.add(sliderWrapPanel);
+//		homeScreenPanel.add(previewWrapPanel);
+//		homeScreenPanel.add(adWrapPanel);
 		homeScreenPanel.add(reviewWrapPanel);
 
 		JScrollPane scrollPane = new JScrollPane(homeScreenPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

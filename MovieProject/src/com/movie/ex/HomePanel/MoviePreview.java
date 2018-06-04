@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -65,11 +64,6 @@ public class MoviePreview extends JPanel{
 		for(int i=0;i<8;i++) {
 			String movieNum = dtos.get(i).getMovieNo();
 			URL previewImg = parsing.getMovieInfo(dtos.get(i).getMovieNo()).getPreviewURL();
-
-			Random random = new Random();
-			int r = random.nextInt(255);
-			int g = random.nextInt(255);
-			int b = random.nextInt(255);
 			
 			/*각각의 사진과 영화제목 넣을 Panel*/
 			JPanel contentPanel = new JPanel();

@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.movie.ex.Listener.PreviewControlBtnListener;
 
-
 public class MoviePreviewControl extends JPanel{
 	
 	public MoviePreviewControl(String path,MoviePreview moviePreview) {
