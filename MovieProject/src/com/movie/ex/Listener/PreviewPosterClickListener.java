@@ -32,7 +32,7 @@ public class PreviewPosterClickListener extends JFrame{
 	/*url을 통해 동영상 재생*/
 	public void showPreview(String url) {
 		setTitle("preview");
-		setBounds((Toolkit.getDefaultToolkit().getScreenSize().width-1280)/2, (Toolkit.getDefaultToolkit().getScreenSize().height-720)/2, 1280, 720);
+		setBounds((Toolkit.getDefaultToolkit().getScreenSize().width-1220)/2, (Toolkit.getDefaultToolkit().getScreenSize().height-720)/2, 1220, 720);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		addWindowListener(new WindowAdapter() {

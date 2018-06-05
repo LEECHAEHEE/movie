@@ -75,6 +75,8 @@ public class HomeScreen extends JFrame{
 		ImageIcon icon = new ImageIcon("./images/AdBackground.png");
 		JPanel adWrapPanel = new AdPanel(icon.getImage());
 		adWrapPanel.setPreferredSize(new Dimension(getWidth(), 180));
+		
+		
 		gridbag.setConstraints(adWrapPanel, wrapConstraint);
 		
 		/*review*/
@@ -98,9 +100,9 @@ public class HomeScreen extends JFrame{
 		reviewWrapPanel.add(reviewInnerPanel);
 		
 		/*전체 화면에 넣기*/
-//		homeScreenPanel.add(topWrapPanel);
-//		homeScreenPanel.add(sliderWrapPanel);
-//		homeScreenPanel.add(previewWrapPanel);
+		homeScreenPanel.add(topWrapPanel);
+		homeScreenPanel.add(sliderWrapPanel);
+		homeScreenPanel.add(previewWrapPanel);
 //		homeScreenPanel.add(adWrapPanel);
 		homeScreenPanel.add(reviewWrapPanel);
 

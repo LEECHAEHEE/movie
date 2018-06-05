@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import com.movie.ex.DTO.BoardDTO;
 
 public class BoardDAO {
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
+	
 	
 	String id = "movieUser";
 	String pw = "7465";
@@ -24,13 +22,16 @@ public class BoardDAO {
 		}
 	}
 	/******************************************************************************************
-	 * 게시판 삽입
+	 * 게시판 삽입 //TODO 회원 번호 연결해야됨
 	 ******************************************************************************************/
 	public int insert(String title, String content) {
-		conn = getConnection();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
 		String sql = "insert into mboard (writer_no,title,content) values(?,?,?);";
 		try {
+			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, 4141);
 			pstmt.setString(2, title);
@@ -60,9 +61,12 @@ public class BoardDAO {
 	 ******************************************************************************************/
 	public ArrayList<BoardDTO> getBoardList(){
 		ArrayList<BoardDTO> dtos = new ArrayList<>();
-		conn = getConnection();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		String sql = "select * from mboard order by no desc";
 		try {
+			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
@@ -86,10 +90,12 @@ public class BoardDAO {
 	 ******************************************************************************************/
 	public ArrayList<BoardDTO> getUpperTen(){
 		ArrayList<BoardDTO> dtos = new ArrayList<>();
-		conn = getConnection();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		String sql = "select * from mboard order by no desc limit 10";
-		
 		try {
+			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
@@ -110,9 +116,34 @@ public class BoardDAO {
 		return dtos;
 	}
 	/******************************************************************************************
-	 * 게시판 한개 내용 가져오기
+	 * 게시판 한개 내용 가져오기 //TODO 회원 정보 연결해야됨
 	 ******************************************************************************************/
-	
+	public BoardDTO getBoardInfo(int no) {
+		BoardDTO dto = new BoardDTO();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from mboard where no=?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				dto.setNo(rs.getInt("no"));
+				dto.setWriter(rs.getString("writer_no"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setDate(rs.getTimestamp("wdate"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			disconn(conn,pstmt,rs);
+		}
+		return dto;
+	}
 	/******************************************************************************************
 	 * Connection 객체 생성
 	 ******************************************************************************************/

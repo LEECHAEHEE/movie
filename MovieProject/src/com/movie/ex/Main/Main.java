@@ -9,8 +9,8 @@ public class Main {
 	public static int idSession = 0;
 	
 	public static void main(String[] args) {
-		new MovieAllBoard();
-//		new HomeScreen();
+//		new MovieAllBoard();
+		new HomeScreen();
 	}
 }
 //

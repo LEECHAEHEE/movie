@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,14 +15,18 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import com.movie.ex.DAO.BoardDAO;
+import com.movie.ex.DTO.BoardDTO;
+import com.movie.ex.DTO.PagingDTO;
 
-public class WriteBoard extends JPanel{
-	public WriteBoard(MovieAllBoard movieAllBoard) {
-		BoardDAO dao = new BoardDAO();
-		
+public class BoardWrite extends JPanel{
+	BoardDAO dao = new BoardDAO();
+	ArrayList<BoardDTO> dtos = new ArrayList<>();
+	
+	public BoardWrite(MovieAllBoard movieAllBoard) {
 		setBounds(800,0,800,600);
-		setBackground(Color.white);
+//		setBackground(Color.white);
 		setLayout(null);
+		
 	
 		JLabel titleLabel = new JLabel("글 작성");
 		titleLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 25));
@@ -64,10 +69,26 @@ public class WriteBoard extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				String title = titleField.getText().trim();
 				String content = contentArea.getText().trim();
+				
+				/*입력 받은 값으로 DB저장*/
 				dao.insert(title, content);
+				
+				/*입력 완료 했으므로 초기화*/
 				titleField.setText("");
 				contentArea.setText("");
 				JOptionPane.showMessageDialog(null, "등록 되었습니다");
+				
+				/*입력된거 적용하기 위한 작업*/
+				movieAllBoard.contentPanel.removeAll();
+				movieAllBoard.Pdto.setCur_Page(1);
+				movieAllBoard.dtos = dao.getBoardList();
+				PagingDTO Pdto = new PagingDTO(movieAllBoard.dtos.size(), 1);
+				
+				movieAllBoard.contentPanel.removeAll();
+				movieAllBoard.inputTopPanel(movieAllBoard.contentPanel);
+				movieAllBoard.insertBoardElement(movieAllBoard.contentPanel,Pdto);
+				movieAllBoard.contentPanel.repaint();
+				movieAllBoard.contentPanel.revalidate();
 				movieAllBoard.LtoRTimer.start();
 			}
 		});

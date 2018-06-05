@@ -13,7 +13,15 @@ public class PagingDTO {
 	  this.cur_Page = cur_Page;
 	 }
 	 
-	 public int getPage_Count()
+	public int getCur_Page() {
+		return cur_Page;
+	}
+
+	public void setCur_Page(int cur_Page) {
+		this.cur_Page = cur_Page;
+	}
+
+	public int getPage_Count()
 	 {
 	  return ( (writing_Count - 1) / w_size) + 1;
 	 }
