@@ -47,6 +47,7 @@ public class BoardWrite extends JPanel{
 		JTextArea contentArea = new JTextArea();
 		contentArea.setBounds(40,110,710,350);
 		contentArea.setBorder(new LineBorder(Color.black));
+		contentArea.setLineWrap(true);
 		
 		/*입력 버튼*/
 		JButton completeBtn = new JButton("입력");

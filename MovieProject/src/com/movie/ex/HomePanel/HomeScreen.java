@@ -3,14 +3,22 @@ package com.movie.ex.HomePanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 /*
  * 홈 width:1500 height:1000
@@ -71,13 +79,16 @@ public class HomeScreen extends JFrame{
 		previewWrapPanel.add(preViewInnerPanel);
 		previewWrapPanel.add(rightArw);
 		
-		/*AD*/
-		ImageIcon icon = new ImageIcon("./images/AdBackground.png");
-		JPanel adWrapPanel = new AdPanel(icon.getImage());
-		adWrapPanel.setPreferredSize(new Dimension(getWidth(), 180));
-		
-		
-		gridbag.setConstraints(adWrapPanel, wrapConstraint);
+		/*user place*/
+		JPanel userPanel = new JPanel();
+		userPanel.setPreferredSize(new Dimension(getWidth(), 45));
+		userPanel.setBackground(Color.white);
+		JLabel userLabel = new JLabel("게시판",SwingConstants.CENTER);
+		userLabel.setPreferredSize(new Dimension(1100, 40));
+		userLabel.setFont(new Font("맑은 고딕",Font.PLAIN,30));
+		userLabel.setBorder(new MatteBorder(0,0,2,0,Color.LIGHT_GRAY));
+		userPanel.add(userLabel);
+		gridbag.setConstraints(userPanel, wrapConstraint);
 		
 		/*review*/
 		JPanel reviewWrapPanel = new JPanel();
@@ -89,21 +100,20 @@ public class HomeScreen extends JFrame{
 		JPanel reviewInnerPanel = new JPanel();
 		reviewInnerPanel.setLayout(null);
 		reviewInnerPanel.setPreferredSize(new Dimension(1100,500));
-		
 		reviewInnerPanel.setBackground(Color.WHITE);
 		
 		JPanel movieRating = new MovieRating();
-		JPanel movieUnsigned = new MovieBoard();
-				
+		JPanel movieBoard = new MovieBoard();
+		
 		reviewInnerPanel.add(movieRating);
-		reviewInnerPanel.add(movieUnsigned);
+		reviewInnerPanel.add(movieBoard);
 		reviewWrapPanel.add(reviewInnerPanel);
 		
 		/*전체 화면에 넣기*/
 		homeScreenPanel.add(topWrapPanel);
 		homeScreenPanel.add(sliderWrapPanel);
 		homeScreenPanel.add(previewWrapPanel);
-//		homeScreenPanel.add(adWrapPanel);
+		homeScreenPanel.add(userPanel);
 		homeScreenPanel.add(reviewWrapPanel);
 
 		JScrollPane scrollPane = new JScrollPane(homeScreenPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

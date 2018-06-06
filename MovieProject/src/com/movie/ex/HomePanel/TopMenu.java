@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,7 +34,8 @@ public class TopMenu extends JPanel {
 		setPreferredSize(new Dimension(1100, 100));
 		setBackground(Color.white);
 		/*로고*/
-		JLabel logo = new JLabel("    LEGO AREA");
+		JLabel logo = new JLabel(new ImageIcon("./images/logo.png"));
+		logo.setBorder(new EmptyBorder(0, 50, 0, 0));
 		logo.setFont(new Font("맑은 고딕", Font.ITALIC, 30));
 		add(logo, BorderLayout.WEST);
 		

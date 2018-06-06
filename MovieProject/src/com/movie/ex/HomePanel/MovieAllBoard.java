@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -46,7 +49,7 @@ public class MovieAllBoard extends JFrame {
 	JButton nextBtn;
 	JButton lastBtn;
 	
-	public MovieAllBoard() {
+	public MovieAllBoard(MovieBoard movieBoard) {
 		setBounds((Toolkit.getDefaultToolkit().getScreenSize().width-800)/2, (Toolkit.getDefaultToolkit().getScreenSize().height-600)/2, 800, 600);
 		setTitle("Board");
 		setFont(new Font("맑은 고딕", Font.PLAIN, 12));
@@ -248,6 +251,14 @@ public class MovieAllBoard extends JFrame {
 		LtoRTimer = new Timer(delay, lTaskPerformed);
 		TtoBTimer = new Timer(delay, tTaskPerformed);
 		BtoTTimer = new Timer(delay, bTaskPerformed);
+
+		/*게시판 창이 꺼질 때 홈화면의 top10개 게시글 갱신*/
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				movieBoard.insertUpperTen();
+			}
+		});
 		
 	}//public MovieAllBoard() {
 	
@@ -328,7 +339,7 @@ public class MovieAllBoard extends JFrame {
 		topPanel.add(dateTab);
 		
 		contentPanel.add(topPanel);
-	}
+	}//public void inputTopPanel(JPanel contentPanel) {
 
 	/*contentPanel에 게시글 삽입*/
 	public void insertBoardElement(JPanel contentPanel, PagingDTO Pdto) {
@@ -404,5 +415,5 @@ public class MovieAllBoard extends JFrame {
 				contentPanel.add(writingPanel);
 			}
 		}//for(int i=0;i<11;i++) {
-	}
+	}//public void insertBoardElement(JPanel contentPanel, PagingDTO Pdto) {
 }

@@ -4,11 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;import java.awt.event.ActionEvent;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,17 +20,19 @@ import com.movie.ex.DAO.BoardDAO;
 import com.movie.ex.DTO.BoardDTO;
 
 public class MovieBoard extends JPanel{
+	JPanel contentPanel;
+	JPanel wrapPanel;
+	BoardDAO dao = new BoardDAO();
+	
 	public MovieBoard() {
-		BoardDAO dao = new BoardDAO();
-		ArrayList<BoardDTO> dtos = new ArrayList<>();
-		
+		MovieBoard mb = this;
 		setLayout(null);
 		setBounds(575,25,500,450);
 		setBorder(new LineBorder(Color.black));
 		setBackground(Color.white);
 		
 		/*전체 감싸는 영역*/
-		JPanel wrapPanel = new JPanel();
+		wrapPanel = new JPanel();
 		wrapPanel.setLayout(null);
 		wrapPanel.setBounds(20,10,460,430);
 		
@@ -54,34 +55,44 @@ public class MovieBoard extends JPanel{
 		JButton moreIcon = new JButton(new ImageIcon(newImage));
 		moreIcon.setBounds(410,15,30,30);
 		moreIcon.setContentAreaFilled(false);
-		
 		moreIcon.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new MovieAllBoard();
+				new MovieAllBoard(mb);
 			}
 		});
-
+		
 		/*제목 라벨, 더보기 버튼 추가*/
 		topPanel.add(titleLabel);
 		topPanel.add(moreIcon);
 		
 		/*내용 영역*/
-		JPanel contentPanel = new JPanel();
+		contentPanel = new JPanel();
 		contentPanel.setLayout(new GridLayout(10, 1));
 		contentPanel.setBounds(0,60,460,370);
 		contentPanel.setBackground(Color.red);
 		
+		
+		wrapPanel.add(topPanel);
+		insertUpperTen();
+		
+		add(wrapPanel);
+	}
+	
+	public void insertUpperTen() {
+		ArrayList<BoardDTO> dtos;
 		/*상위 10개 글 갖고온다*/
 		dtos = dao.getUpperTen();
+		/*contentPanel 안에 있는 모든 컴포넌트 삭제*/
+		contentPanel.removeAll();
 		
+		/*다시 집어 넣어*/
 		for(int i=0;i<10;i++) {
 			JPanel reviewPanel = new JPanel();
 			reviewPanel.setLayout(null);
 			reviewPanel.setPreferredSize(new Dimension(460, 40));
 			reviewPanel.setBackground(Color.WHITE);
 			if(i<9) reviewPanel.setBorder(new MatteBorder(0,0,1,0,Color.LIGHT_GRAY));
-			
 			
 			if(i<dtos.size()) {
 				JLabel title = new JLabel(dtos.get(i).getTitle());
@@ -92,9 +103,10 @@ public class MovieBoard extends JPanel{
 			}
 			contentPanel.add(reviewPanel);
 		}
+		/*집어 넣은거 보여주기*/
+		contentPanel.repaint();
+		contentPanel.revalidate();
 		
-		wrapPanel.add(topPanel);
 		wrapPanel.add(contentPanel);
-		add(wrapPanel);
 	}
 }

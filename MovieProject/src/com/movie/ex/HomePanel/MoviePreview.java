@@ -90,9 +90,8 @@ public class MoviePreview extends JPanel{
 			
 			/*각 포스터 담은 JLabel에 리스너 등록*/
 			posterLabel.addMouseListener(new PreviewPosterClickListener(frame).listener);
-			
 			/*영화 제목 Label*/
-			JLabel titleLabel = new JLabel("<html>&nbsp&nbsp" + dtos.get(i).getTitle() + "<br/>" + "&nbsp&nbsp★&nbsp " + dtos.get(i).getRating() + "</html>");
+			JLabel titleLabel = new JLabel("<html>&nbsp&nbsp" + ((dtos.get(i).getTitle().length()>15)?dtos.get(i).getTitle().substring(0, 15)+"...":dtos.get(i).getTitle()) + "<br/>" + "&nbsp&nbsp★&nbsp " + dtos.get(i).getRating() + "</html>");
 //			titleLabel.setPreferredSize(new Dimension(230,20));
 			titleLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 			titleLabel.setForeground(Color.black);

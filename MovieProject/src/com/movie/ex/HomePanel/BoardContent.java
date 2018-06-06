@@ -69,6 +69,7 @@ public class BoardContent extends JPanel{
 			contentArea.setBackground(defaultColor);
 			contentArea.setEditable(false);
 			contentArea.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+			contentArea.setLineWrap(true);
 			contentPanel.add(contentArea);
 			
 			/*목록으로 버튼*/
